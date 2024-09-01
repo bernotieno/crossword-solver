@@ -78,6 +78,9 @@ function crosswordSolver(emptyPuzzle, words) {
         for (const start of wordStarts) {
             if (canPlaceWord(word, start)) {
                 placeWord(word, start);
+                // console.log("===succesfuly placed===")
+                // console.log(puzzle.map(row => row.join('')))
+                // console.log("====end od succes=====")
                 if (fillPuzzle(index + 1)) {
                     return true;
                 }
@@ -112,13 +115,22 @@ function crosswordSolver(emptyPuzzle, words) {
 
     // Remove the word from the puzzle (used for backtracking)
     function removeWord(word, start) {
-        console.log(puzzle.map(row => row.join('')));
+        // console.log("===before removed===")
+        // console.log(puzzle.map(row => row.join('')))
+        // console.log("====end of removed=====")
         let { row, col, direction } = start;
         for (let i = 0; i < word.length; i++) {
             puzzle[row][col] = '0';
             direction === 'across' ? col++ : row++;
         }
+        // console.log("===after  removed===")
+        // console.log(puzzle.map(row => row.join('')))
+        // console.log("====end of removed=====")
     }
+
+    // console.log("=== initial puzzle===")
+    // console.log(puzzle.map(row => row.join('')))
+    // console.log("====end of puzzle=====")
 
     // Attempt to solve the puzzle and output result
     if (fillPuzzle(0)) {
