@@ -1,5 +1,10 @@
 function crosswordSolver(emptyPuzzle, words) {
 
+    if (typeof emptyPuzzle !== 'string') {
+        console.log('Error')
+        return;
+    }
+    
     const puzzle = emptyPuzzle.split('\n').map(row => row.split(''));
     const height = puzzle.length;
     const width = puzzle[0].length;
