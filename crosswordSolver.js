@@ -6,11 +6,11 @@ function crosswordSolver(emptyPuzzle, words) {
         return;
     }
 
-    if (!Array.isArray(words)) {
+    if (!Array.isArray(words)|| words.length < 3 || !/^[.\n012]+$/.test(emptyPuzzle)) {
         console.log('Error');
         return;
     }
-
+ 
     // Check for invalid words
     const invalidWords = words.some(word => typeof word !== "string");
     if (invalidWords) {
@@ -139,3 +139,4 @@ function crosswordSolver(emptyPuzzle, words) {
         console.log('Error');
     }
 }
+module.exports = { crosswordSolver };
