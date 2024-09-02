@@ -13,7 +13,7 @@ function crosswordSolver(emptyPuzzle, words) {
  
     // Check for invalid words
     const invalidWords = words.some(word => typeof word !== "string");
-    if (invalidWords) {
+    if (invalidWords || !hasDuplicates(words)) {
         console.log("Error");
         return;
     }
@@ -26,7 +26,7 @@ function crosswordSolver(emptyPuzzle, words) {
     // Sort words by length (longest first) and determine minimum word length
     words.sort((a, b) => b.length - a.length);
     const minWordLength = words[words.length-1].length;
-    let track = 0; // To track the number of placed words
+    let track = 0; // To track the number of  words to be placed 
     const wordStarts = [];
 
     // Identify potential starting points for words
@@ -41,7 +41,7 @@ function crosswordSolver(emptyPuzzle, words) {
                 // Check across direction
                 if (j === 0 || puzzle[i][j-1] === '0' || puzzle[i][j-1] === '.') {
                     let k = j;
-                    while (k < width && (puzzle[i][k] === '1' || puzzle[i][k] === '2' || puzzle[i][k] === '.' || puzzle[i][k] === '0')) {
+                    while (k < width && (puzzle[i][k] === '1' || puzzle[i][k] === '2' || puzzle[i][k] === '0')) {
                         k++;
                     }
                     if (k - j >= minWordLength) { 
@@ -51,7 +51,7 @@ function crosswordSolver(emptyPuzzle, words) {
                 // Check down direction
                 if (i === 0 || puzzle[i-1][j] === '0' || puzzle[i-1][j] === '.') {
                     let k = i;
-                    while (k < height && (puzzle[k][j] === '1' || puzzle[k][j] === '2' || puzzle[k][j] === '.' || puzzle[k][j] === '0')) {
+                    while (k < height && (puzzle[k][j] === '1' || puzzle[k][j] === '2'  || puzzle[k][j] === '0')) {
                         k++;
                     }
                     if (k - i >= minWordLength) { 
@@ -80,7 +80,7 @@ function crosswordSolver(emptyPuzzle, words) {
                 placeWord(word, start);
                 // console.log("===succesfuly placed===")
                 // console.log(puzzle.map(row => row.join('')))
-                // console.log("====end od succes=====")
+                // console.log("====end of success=====")
                 if (fillPuzzle(index + 1)) {
                     return true;
                 }
@@ -138,5 +138,8 @@ function crosswordSolver(emptyPuzzle, words) {
     } else {
         console.log('Error');
     }
+}
+const hasDuplicates = (words) => {
+    return (new Set (words)).size === words.length
 }
 module.exports = { crosswordSolver };
